@@ -1,10 +1,23 @@
 package com.apisecurityapp.apisecurityapp.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "incidencia")
+
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "f_insertar_incidencia1", procedureName = "f_insertar_incidencia1", parameters = {
+
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_idusuario", type = int.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_ubicacion", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_estado", type = int.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_tipo", type = String.class), }),
+
+})
 public class Incidencia {
 
     @Id
@@ -12,22 +25,36 @@ public class Incidencia {
     @Column(name = "idincidencia")
     private Long id;  // La clave primaria
 
-    @ManyToOne
+
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario", nullable = false)
-    private Usuario usuario;  // Relación con la entidad 'Usuario'
+    private int idusuario;  // Relación con la entidad 'Usuario'
 
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-
-    @Column(name = "tipo")
-    private Integer tipo;
+    @Temporal(TemporalType.DATE)  // Solo la fecha, sin la hora
+    @Column(nullable = false)
+    private LocalDate fecha;  // Cambiar LocalDateTime a LocalDate
 
     @Column(name = "ubicacion", columnDefinition = "TEXT")
     private String ubicacion;
 
     @Column(name = "estado", columnDefinition = "integer default 1")
     private Integer estado;  // Estado de la incidencia (1: Registrado, 2: Atendido, 3: Solucionado)
+
+    @Column(name = "tipo", columnDefinition = "TEXT")
+    private String tipo;
+
+
+    public Incidencia(Long idincidencia, int idusuario, LocalDate fecha, String ubicacion, int estado, String tipo) {
+        this.id = id;
+        this.idusuario = idusuario;
+        this.fecha = fecha;
+        this.ubicacion = ubicacion;
+        this.estado = estado;
+        this.tipo = tipo;
+    }
+
+    public Incidencia() {
+
+    }
 
     // Getters y Setters
     public Long getId() {
@@ -38,28 +65,20 @@ public class Incidencia {
         this.id = id;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getIdusuario() {
+        return idusuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
     }
 
     public String getUbicacion() {
@@ -76,5 +95,25 @@ public class Incidencia {
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Incidencia{" +
+                "id=" + id +
+                ", idusuario=" + idusuario +
+                ", fecha=" + fecha + '\''+
+                ", ubicacion=" + ubicacion +
+                ", estado='" + estado +
+                ", tipo=" + tipo +
+                '}';
     }
 }
