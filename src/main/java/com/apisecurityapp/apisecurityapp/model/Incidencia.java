@@ -43,7 +43,7 @@ public class Incidencia {
     private String tipo;
 
 
-    public Incidencia(Long idincidencia, int idusuario, LocalDate fecha, String ubicacion, int estado, String tipo) {
+    public Incidencia(Long id, int idusuario, LocalDate fecha, String ubicacion, int estado, String tipo) {
         this.id = id;
         this.idusuario = idusuario;
         this.fecha = fecha;

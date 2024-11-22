@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/incidencias")
 public class IncidenciaController {
@@ -20,4 +22,11 @@ public class IncidenciaController {
         String nuevaIncidencia = incidenciaService.f_insertar_incidencia1(incidencia);
         return new ResponseEntity<>(nuevaIncidencia, HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Incidencia>> obtenerTodasLasIncidencias() {
+        List<Incidencia> incidencias = incidenciaService.obtenerTodasLasIncidencias();
+        return new ResponseEntity<>(incidencias, HttpStatus.OK);
+    }
+
 }
