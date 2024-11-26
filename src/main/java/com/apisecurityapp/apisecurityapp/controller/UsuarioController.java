@@ -63,15 +63,30 @@ public class UsuarioController {
             return new ResponseEntity<>("La organización no existe.", HttpStatus.BAD_REQUEST);
         }
 
-        // Asignar la organización al usuario
         usuario.setOrganizacion(organizacion);
         usuario.setFechaCreacion(new Date());  // Establecer la fecha de creación
+
+        // Validar y asignar el perfil (0 para admin, 1 para usuario)
+        if (usuario.getPerfil() == null || !(usuario.getPerfil() == 0 || usuario.getPerfil() == 1)) {
+            return new ResponseEntity<>("El perfil debe ser 0 para admin o 1 para usuario.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (usuario.getNombre() == null || usuario.getNombre().isEmpty()) {
+            return new ResponseEntity<>("El nombre no puede estar vacío.", HttpStatus.BAD_REQUEST);
+        }
+        if (usuario.getApellidos() == null || usuario.getApellidos().isEmpty()) {
+            return new ResponseEntity<>("Los apellidos no pueden estar vacíos.", HttpStatus.BAD_REQUEST);
+        }
+        if (usuario.getFechaNacimiento() == null) {
+            return new ResponseEntity<>("La fecha de nacimiento no puede estar vacía.", HttpStatus.BAD_REQUEST);
+        }
 
         // Guardar el usuario en la base de datos
         usuarioRepository.save(usuario);
 
         return new ResponseEntity<>("Usuario creado exitosamente.", HttpStatus.CREATED);
     }
+
 
 
     @GetMapping
