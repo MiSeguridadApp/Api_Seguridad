@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class IncidenciaService {
@@ -21,4 +22,9 @@ public class IncidenciaService {
     public String f_insertar_incidencia1(Incidencia incidencia){
         return incidenciaRepository.f_insertar_incidencia1(incidencia.getIdusuario(), incidencia.getUbicacion(),incidencia.getEstado(), incidencia.getTipo());
     }
+
+    public List<Incidencia> obtenerTodasLasIncidencias() {
+        return incidenciaRepository.findAll(); // Retorna todas las incidencias
+    }
+
 }
