@@ -63,14 +63,13 @@ public class UsuarioController {
             return new ResponseEntity<>("La organización no existe.", HttpStatus.BAD_REQUEST);
         }
 
+        // Asignar los valores de la solicitud al usuario
+        // Estos valores ya deberían ser asignados automáticamente cuando se deserializa el JSON al objeto Usuario
+        // Asignar la organización al usuario
         usuario.setOrganizacion(organizacion);
         usuario.setFechaCreacion(new Date());  // Establecer la fecha de creación
 
-        // Validar y asignar el perfil (0 para admin, 1 para usuario)
-        if (usuario.getPerfil() == null || !(usuario.getPerfil() == 0 || usuario.getPerfil() == 1)) {
-            return new ResponseEntity<>("El perfil debe ser 0 para admin o 1 para usuario.", HttpStatus.BAD_REQUEST);
-        }
-
+        // Si deseas, puedes agregar validaciones adicionales para campos como 'nombre', 'apellidos', etc.
         if (usuario.getNombre() == null || usuario.getNombre().isEmpty()) {
             return new ResponseEntity<>("El nombre no puede estar vacío.", HttpStatus.BAD_REQUEST);
         }

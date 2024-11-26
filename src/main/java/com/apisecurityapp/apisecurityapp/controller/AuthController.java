@@ -57,6 +57,8 @@ public class AuthController {
         } catch (AuthenticationException e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("status", "failed");
+            errorResponse.put("email", loginRequest.getEmail());
+            errorResponse.put("contra", loginRequest.getPassword());
             errorResponse.put("message", "Combinación de nombre de usuario/contraseña no válida");
             errorResponse.put("details", e.getMessage());
             return errorResponse;
