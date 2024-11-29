@@ -11,7 +11,9 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Long> {
             @Param("in_idusuario") int id_usuario,
             @Param("in_ubicacion") String in_ubicacion,
             @Param("in_estado") int in_estado,
-            @Param("in_tipo") String in_tipo
+            @Param("in_tipo") String in_tipo,
+            @Param("in_latitud") double in_latitud,
+            @Param("in_longitud") double in_longitud
     );
 
 
