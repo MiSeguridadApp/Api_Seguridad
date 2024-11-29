@@ -20,7 +20,7 @@ public class IncidenciaService {
     private UsuarioRepository usuarioRepository;
 
     public String f_insertar_incidencia1(Incidencia incidencia){
-        return incidenciaRepository.f_insertar_incidencia1(incidencia.getIdusuario(), incidencia.getUbicacion(),incidencia.getEstado(), incidencia.getTipo());
+        return incidenciaRepository.f_insertar_incidencia1(incidencia.getIdusuario(), incidencia.getUbicacion(),incidencia.getEstado(), incidencia.getTipo(), incidencia.getLatitud(), incidencia.getLongitud());
     }
 
     public List<Incidencia> obtenerTodasLasIncidencias() {
